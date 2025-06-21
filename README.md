@@ -1,51 +1,273 @@
-# 👋 Hi, I'm Ismat Samadov
+# 🔍 GitHub Repository Scraper
 
-**Machine Learning Engineer** specializing in production ML systems, MLOps, and end-to-end model deployment. I build scalable AI solutions across computer vision, NLP, and financial ML with real-world business impact.
+[![Python](https://img.shields.io/badge/Python-3.7+-blue.svg)](https://python.org)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub API](https://img.shields.io/badge/GitHub%20API-v3-green.svg)](https://docs.github.com/en/rest)
 
-## 🚀 About Me
+A comprehensive Python tool for scraping and analyzing GitHub repositories. This scraper extracts detailed information about all repositories for a given user, including README content, programming languages, repository statistics, and automatically categorizes projects.
 
-- 🛠️ **ML Engineer** focused on production systems and model deployment.
-- 🎓 MBA candidate in AI at Azerbaijan State University of Economics.
-- ⚡ Expert in building end-to-end ML pipelines and scalable architecture.
-- 📊 Specialized in financial ML, computer vision, and NLP applications.
+## 🌟 Features
 
-## 🔥 Featured Projects
+### 📊 **Comprehensive Data Extraction**
+- **Repository Metadata**: Stars, forks, watchers, size, creation dates
+- **Content Analysis**: README content extraction and cleaning
+- **Language Detection**: Primary and all programming languages used
+- **Repository Settings**: Privacy, fork status, issues, wiki, pages
+- **Topics & Categories**: Automatic categorization and topic extraction
 
-### 🤖 AI Systems & Intelligent Agents
+### 🤖 **Intelligent Categorization**
+Automatically categorizes repositories into:
+- **Web Development** (JavaScript, TypeScript, HTML, CSS)
+- **Mobile Development** (Swift, Kotlin, Dart)
+- **Data Science/ML** (Python, R, Jupyter notebooks)
+- **API/Backend** (Server-side applications, databases)
+- **Tools/Utilities** (Scripts, automation, CLI tools)
+- **Learning/Tutorial** (Educational content, examples)
 
-- [**Agent Implementation Framework**](https://github.com/Ismat-Samadov/agent_implementation) - Production-ready intelligent agents framework with containerized deployment and multiple agent types (Simple Reflex, Model-Based, Q-Learning).
-- [**AI Banking Assistant**](https://github.com/Ismat-Samadov/banking_assistant) - Intelligent banking advisor powered by Google Gemini AI with PWA capabilities, offering real-time financial guidance, account management assistance, and 24/7 multilingual support.
+### 🚀 **Advanced Features**
+- **Rate Limiting**: Respectful API usage with built-in delays
+- **Error Handling**: Robust error handling for API failures
+- **README Processing**: Smart content extraction and cleaning
+- **CSV Export**: Clean, structured data export
+- **Token Support**: Optional GitHub token for higher rate limits
 
-### 👁️ Computer Vision & Medical AI
+## 📋 Requirements
 
-- [**Tree Disease Detection System**](https://github.com/Ismat-Samadov/crop_desease_detection) - YOLOv8-based real-time disease detection achieving 93.3% mAP50 on UAV imagery with REST API deployment.
-- [**Chest Cancer Detection Platform**](https://github.com/Ismat-Samadov/chest_cancer_detection) - Medical imaging solution using DenseNet121 with DICOM preprocessing and explainable AI features.
+- Python 3.7+
+- GitHub account
+- Personal Access Token (recommended for better rate limits)
 
-### 🔤 NLP & Language Engineering
+## 🛠️ Installation
 
-- [**Azerbaijani NER Engine**](https://github.com/Ismat-Samadov/Named_Entity_Recognition) - Custom Named Entity Recognition for Azerbaijani language with FastAPI microservices and real-time inference.
-- [**Azerbaijani GPT Implementation**](https://github.com/Ismat-Samadov/GPT) - Transformer-based language model trained on Azerbaijani Wikipedia with custom tokenization and distributed training.
+### 1. Clone the Repository
+```bash
+git clone https://github.com/Ismat-Samadov/github_scraping.git
+cd github_scraping
+```
 
-### 🏦 Financial ML Systems
+### 2. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
 
-- [**Enterprise PD Scoring API**](https://github.com/Ismat-Samadov/probability_default) - Basel III & IFRS 9 compliant Probability of Default system with sub-100ms latency and comprehensive monitoring.
-- [**CLV Prediction Engine**](https://github.com/Ismat-Samadov/clv_model) - Scalable Customer Lifetime Value prediction with automated feature engineering and real-time serving.
-- [**Automated Loan Assessment Platform**](https://github.com/Ismat-Samadov/Loan_Eligiblity) - ML-powered loan decision system with ensemble models and explainable AI features.
+### 3. Set Up Environment Variables
+Create a `.env` file in the project root:
+```env
+GITHUB_USERNAME=your_github_username
+GITHUB_TOKEN=your_personal_access_token
+```
 
-### 🏘️ Market Intelligence Systems
+## 🔑 GitHub Token Setup
 
-- [**Real Estate Valuation Engine**](https://github.com/Ismat-Samadov/Home_Price_Prediciton) - Production ML system for Azerbaijan real estate market with automated data pipelines and geographic clustering.
-- [**Automotive Price Intelligence**](https://github.com/Ismat-Samadov/Car_Price_Prediction) - Vehicle valuation platform using ensemble methods with automated retraining and performance monitoring.
+### Why Use a Token?
+- **Higher Rate Limits**: 5,000 requests/hour vs 60 requests/hour
+- **Private Repositories**: Access to your private repos
+- **Better Reliability**: Reduced chance of hitting rate limits
 
-### 📈 Time Series & Anomaly Detection
+### How to Create a Token:
+1. Go to [GitHub Settings > Developer settings > Personal access tokens](https://github.com/settings/tokens)
+2. Click "Generate new token (classic)"
+3. Select scopes:
+   - `public_repo` (for public repositories)
+   - `repo` (for private repositories access)
+4. Copy the token and add it to your `.env` file
 
-- [**Sales Forecasting Pipeline**](https://github.com/Ismat-Samadov/Sales_Forecasting) - Time-series forecasting with automated model selection, drift detection, and ensemble methods.
-- [**Real-time Fraud Detection**](https://github.com/Ismat-Samadov/fraud_detection) - Streaming ML system for transaction fraud detection with adaptive learning and low-latency inference.
-- [**Fake News Detection API**](https://github.com/Ismat-Samadov/Fake_News_Detection) - NLP-based misinformation detection using transformer models with real-time classification and bias detection.
+## 🚀 Usage
+
+### Basic Usage
+```python
+from github_scraper import GitHubRepoScraper
+
+# Initialize scraper
+scraper = GitHubRepoScraper('your_username', 'your_token')
+
+# Scrape all repositories and save to CSV
+scraper.scrape_to_csv('my_repositories.csv')
+```
+
+### Command Line Usage
+```bash
+python github_scraper.py
+```
+
+### Advanced Usage
+```python
+# Custom output file
+scraper.scrape_to_csv('custom_output.csv')
+
+# Get specific data
+repos = scraper.get_all_repositories()
+readme = scraper.get_readme_content('repository_name')
+languages = scraper.get_languages('repository_name')
+```
+
+## 📊 Output Format
+
+The scraper generates a CSV file with the following columns:
+
+| Column | Description | Example |
+|--------|-------------|---------|
+| `name` | Repository name | `github_scraping` |
+| `description` | Repository description | `GitHub repositories scraping` |
+| `readme_content` | First 500 chars of README | `This project implements...` |
+| `url` | Repository URL | `https://github.com/user/repo` |
+| `clone_url` | HTTPS clone URL | `https://github.com/user/repo.git` |
+| `ssh_url` | SSH clone URL | `git@github.com:user/repo.git` |
+| `homepage` | Project homepage | `https://example.com` |
+| `language` | Primary language | `Python` |
+| `languages_used` | All languages | `Python, JavaScript, HTML` |
+| `stars` | Star count | `42` |
+| `forks` | Fork count | `5` |
+| `watchers` | Watcher count | `42` |
+| `size_kb` | Repository size in KB | `1024` |
+| `created_at` | Creation date | `2023-01-01T12:00:00Z` |
+| `updated_at` | Last update | `2023-12-01T12:00:00Z` |
+| `pushed_at` | Last push | `2023-12-01T12:00:00Z` |
+| `is_private` | Private repository | `False` |
+| `is_fork` | Is a fork | `False` |
+| `is_archived` | Archived status | `False` |
+| `has_issues` | Has issues enabled | `True` |
+| `has_wiki` | Has wiki enabled | `True` |
+| `has_pages` | Has GitHub Pages | `False` |
+| `open_issues_count` | Open issues count | `3` |
+| `default_branch` | Default branch | `main` |
+| `category` | Auto-generated category | `Data Science/ML` |
+| `topics` | Repository topics | `python, scraping, api` |
+
+## 🏗️ Project Structure
+
+```
+github_scraping/
+├── github_scraper.py          # Main scraper class
+├── requirements.txt           # Python dependencies
+├── .env                      # Environment variables (create this)
+├── .gitignore               # Git ignore file
+├── LICENSE                  # MIT License
+├── README.md               # This file
+├── index.md               # Project portfolio index
+└── my_github_repositories.csv # Example output
+```
+
+## ⚙️ Configuration
+
+### Environment Variables
+- `GITHUB_USERNAME`: Your GitHub username (required)
+- `GITHUB_TOKEN`: Personal access token (optional but recommended)
+
+### Customization Options
+- **Rate Limiting**: Adjust `time.sleep()` values in the code
+- **README Length**: Modify the 500-character limit
+- **Categories**: Customize categorization logic in `categorize_repo()`
+- **Output Fields**: Add/remove CSV columns as needed
+
+## 🔧 API Rate Limits
+
+### Without Token
+- **60 requests per hour** per IP address
+- **Public repositories only**
+
+### With Token
+- **5,000 requests per hour** per token
+- **Access to private repositories**
+- **Higher success rate**
+
+### Rate Limiting Strategy
+The scraper implements several strategies to respect GitHub's API limits:
+- Built-in delays between requests (0.1-0.2 seconds)
+- Progressive backoff on rate limit errors
+- Efficient API usage patterns
+
+## 🎯 Use Cases
+
+### 📈 **Portfolio Analysis**
+- Analyze your coding journey over time
+- Identify your most popular projects
+- Track repository growth and engagement
+
+### 🔍 **Project Discovery**
+- Find repositories by category or language
+- Discover forgotten or underutilized projects
+- Identify candidates for archival or cleanup
+
+### 📊 **Analytics & Reporting**
+- Generate repository statistics
+- Create development timelines
+- Analyze programming language usage
+
+### 🏢 **Organization Management**
+- Audit team repositories
+- Track project compliance
+- Monitor repository standards
+
+## 🚨 Error Handling
+
+The scraper includes comprehensive error handling:
+- **API Rate Limits**: Automatic detection and graceful handling
+- **Network Issues**: Retry logic with exponential backoff
+- **Missing Content**: Fallback values for missing README files
+- **Invalid Responses**: Proper error logging and continuation
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
+
+### Development Setup
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+### Coding Standards
+- Follow PEP 8 style guidelines
+- Add docstrings to all functions
+- Include error handling for external API calls
+- Write descriptive commit messages
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+**Rate Limit Exceeded**
+```
+Solution: Add a GitHub token or wait for the rate limit to reset
+```
+
+**Empty README Content**
+```
+Cause: Repository doesn't have a README file
+Result: "No README found" will be recorded
+```
+
+**Authentication Failed**
+```
+Solution: Check your GitHub token permissions and validity
+```
+
+**Network Timeouts**
+```
+Solution: Check internet connection and GitHub API status
+```
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- GitHub API for providing comprehensive repository data
+- Python `requests` library for HTTP functionality
+- The open-source community for inspiration and feedback
+
+## 📞 Support
+
+If you encounter any issues or have questions:
+- Open an issue on GitHub
+- Check the troubleshooting section
+- Review GitHub API documentation
 
 ---
 
-*Building reliable, scalable ML systems that deliver real-world value.*
+**Happy Scraping! 🚀**
 
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Ismat-Samadov)
-[![Website](https://img.shields.io/badge/Website-FF7139?style=for-the-badge&logo=Firefox-Browser&logoColor=white)](https://www.ismat.pro/)
+*Last updated: December 2024*
